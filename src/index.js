@@ -16,7 +16,6 @@ const Part = ({name, exercises}) => {
 }
 
 const Content = ({ course }) => {
-  console.log(course[0])
   return (
     <div>
       {course.map(course =>
@@ -27,8 +26,6 @@ const Content = ({ course }) => {
 }
 
 const Course =({course}) => {
- console.log(course)
- console.log(course.parts) 
  return (   
     <div>
       <Header name={course.name}/>
