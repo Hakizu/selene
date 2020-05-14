@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 const Header = ({name}) => {
   return (
-    <h1>{name}</h1>
+    <h2>{name}</h2>
   )
 }
 
@@ -95,6 +95,7 @@ const App = () => {
 
   return (
   <div>
+    <h1>Web development curriculum</h1>
     {courses.map(courses =>
       <Course key={courses.id} course={courses} />  
     )}
