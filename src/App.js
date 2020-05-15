@@ -1,10 +1,7 @@
 import React, {useState} from 'react'
-
-const Name =({persons, number}) => {
-    return (
-        <li>{persons}  {number}</li>
-    )
-}
+import Filter from "./Components/Filter"
+import Form from "./Components/Form"
+import Result from "./Components/Result"
 
 const App = () => {
     const [persons, setPersons] = useState([
@@ -32,56 +29,16 @@ const App = () => {
         setNewName("")
         setNewNumber("")
     }
-    const handlePersonChange = (event) => {
-        setNewName(event.target.value)
-    }
-    const handleNumberChange = (event) => {
-        setNewNumber(event.target.value)
-    }
-
-    const search = (event) => {
-        setNewSearch(event.target.value)
-    }    
-    const result = !newSearch
-    ? persons
-    : persons.filter(p =>
-        p.name.toLowerCase().includes(newSearch.toLowerCase()))
-
 
     return (
         <div>
             <h2>Phonebook</h2>
-            <div>
-                Filter for:
-                <input
-                onChange={search}
-                value = {newSearch}
-                />
-            </div>
+            <Filter setNewSearch={setNewSearch} newSearch={newSearch}/>
             <h2>Add new Contact</h2>
-            <form onSubmit={newPerson}>
-                <div>
-                    name: 
-                    <input
-                        value = {newName}
-                        onChange = {handlePersonChange}
-                    />
-                </div>
-                <div>
-                    number:
-                    <input 
-                        value = {newNumber}
-                        onChange = {handleNumberChange}
-                    />
-                </div>
-                <div>
-                    <button type="submit">add</button>
-                </div>
-            </form>
+            <Form newPerson={newPerson} newName={newName} setNewName={setNewName} 
+                newNumber={newNumber} setNewNumber={setNewNumber} />
             <h2>Numbers</h2>
-            {result.map(persons => 
-            <Name key={persons.name} persons={persons.name} number={persons.number}/>
-            )}
+            <Result newSearch={newSearch} persons={persons} />
         </div>
     )
 }
