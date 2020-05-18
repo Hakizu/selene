@@ -15,12 +15,13 @@ const App = () => {
             })
     }
     useEffect(hook, [])
-
+    
     return (
         <div>
             <h2>List of countries</h2>
             <Filter setNewSearch={setNewSearch} newSearch={newSearch}/>
-            <Result newSearch={newSearch} country={country} />
+            <Result newSearch={newSearch} setSearch={setNewSearch} 
+                country={country}/>
         </div>
     )
 }
