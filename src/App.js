@@ -12,7 +12,7 @@ const App = () => {
 
     const hook = () => {
         Axios
-            .get("http://localhost:3001/persons")
+            .get("https://restcountries.eu/rest/v2/all")
             .then(response => {
                 setPersons(response.data)
             })
@@ -32,17 +32,16 @@ const App = () => {
         : setPersons(persons.concat(personObject))
 
         setNewName("")
-        setNewNumber("")
-    }
+        setNewNumber("") 
+    }  
 
     return (
         <div>
-            <h2>Phonebook</h2>
+            <h2>List of countries</h2>
             <Filter setNewSearch={setNewSearch} newSearch={newSearch}/>
-            <h2>Add new Contact</h2>
+            {/*<h2>Add new Contact</h2>
             <Form newPerson={newPerson} newName={newName} setNewName={setNewName} 
-                newNumber={newNumber} setNewNumber={setNewNumber} />
-            <h2>Numbers</h2>
+                newNumber={newNumber} setNewNumber={setNewNumber} /> */}
             <Result newSearch={newSearch} persons={persons} />
         </div>
     )
