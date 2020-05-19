@@ -6,6 +6,9 @@ import Axios from 'axios'
 const App = () => {
     const [country, setCountries] = useState([])
     const [newSearch, setNewSearch] = useState("")
+    const [weather, setWeather] = useState([])
+    const [icon, setIcon] = useState([])
+    const api = process.env.REACT_APP_API_KEY
 
     const hook = () => {
         Axios
@@ -15,13 +18,13 @@ const App = () => {
             })
     }
     useEffect(hook, [])
-    
+
     return (
         <div>
             <h2>List of countries</h2>
             <Filter setNewSearch={setNewSearch} newSearch={newSearch}/>
             <Result newSearch={newSearch} setSearch={setNewSearch} 
-                country={country}/>
+                country={country} weather={weather} setWeather={setWeather} setIcon={setIcon} api={api}/>
         </div>
     )
 }
