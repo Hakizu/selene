@@ -1,16 +1,11 @@
 import React from 'react'
 
-const Result = ({newSearch, persons}) => {
-    const result = !newSearch
-    ? persons
-    : persons.filter(p =>
-        p.name.toLowerCase().includes(newSearch.toLowerCase()))
-    
+const Person = ({name, number, remove}) => {
     return (
-        <div>
-            {result.map(persons => 
-            <li key={persons.name}>{persons.name} {persons.number} </li>)}
-        </div>
+    	<li>
+            {name} : {number}
+            <button onClick={remove}>Delete Entry</button>
+        </li>
     )
 }
-export default Result
+export default Person
