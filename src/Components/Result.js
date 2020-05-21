@@ -2,10 +2,13 @@ import React from 'react'
 
 const Person = ({name, number, remove}) => {
     return (
-    	<li>
-            {name} : {number}
-            <button onClick={remove}>Delete Entry</button>
-        </li>
+    	<tr>
+            <td>{name} </td>
+            <td className="number">
+                {number}
+            </td>
+            <td><button onClick={remove}>Delete Entry</button> </td>
+        </tr>
     )
 }
 export default Person

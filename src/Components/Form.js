@@ -17,23 +17,27 @@ const Form = ({newPerson, newName, setNewName, newNumber, setNewNumber}) => {
 
     return(
         <form onSubmit={newPerson}>
-        <div>
-            name: 
-            <input
-                value = {newName}
-                onChange = {handlePersonChange}
-            />
-        </div>
-        <div>
-            number:
-            <input 
-                value = {newNumber}
-                onChange = {handleNumberChange}
-            />
-        </div>
-        <div>
-            <button type="submit">add</button>
-        </div>
+        <table><tbody>
+            <tr>
+                <td>name:</td> 
+                <td>
+                <input
+                    value = {newName}
+                    onChange = {handlePersonChange}
+                />
+                </td>
+            </tr>
+            <tr>
+                <td>number:</td>
+                <td>
+                <input 
+                    value = {newNumber}
+                    onChange = {handleNumberChange}
+                />
+                </td>
+            </tr>
+        </tbody></table>
+        <button type="submit">add</button>
         </form>
     )
 }

@@ -3,12 +3,14 @@ import Filter from "./Components/Filter"
 import Form from "./Components/Form"
 import Person from "./Components/Result"
 import contactsServices from './server/contacts'
+import Notification from './Components/Notifications'
 
 const App = () => {
     const [persons, setPersons] = useState([])
     const [newNumber, setNewNumber] = useState('')
     const [newName, setNewName] = useState('')
     const [newSearch, setNewSearch] = useState("")
+    const [msg, setMsg] = useState("")
 
     const getData = () => {
         contactsServices
@@ -18,7 +20,6 @@ const App = () => {
             })
     }
     useEffect(getData, [])
-
 
     const newPerson = (event) =>{
         event.preventDefault()
@@ -41,9 +42,15 @@ const App = () => {
                     setPersons(persons.concat(person)) 
                     setNewName("")
                     setNewNumber("")
+                    setMsg(`${personObject.name} was added to the Phonebook`)
+                    setTimeout(() => {
+                        setMsg(null)
+                    }, 5000)
                 })     
         }
-        const updateMsg = `${personObject.name} already exists,do you want to update his Number with: ${personObject.number}?`
+        const updateMsg = `${personObject.name} already exists,`
+            + `do you want to update his Number with: ${personObject.number}?`
+
         if  (existing && window.confirm(updateMsg)) {
                 contactsServices
                     .update(personObject, matches[0].id)
@@ -53,6 +60,10 @@ const App = () => {
                             ))
                         setNewName("")
                         setNewNumber("")
+                        setMsg(`${personObject.name} phone number was updated`)
+                        setTimeout(() => {
+                            setMsg(null)
+                        }, 5000)
                     })
         }
     }
@@ -74,9 +85,10 @@ const App = () => {
     return (
         <div>
             <h2>Phonebook</h2>
+            <Notification message={msg}/>
             <Filter setNewSearch={setNewSearch} newSearch={newSearch}/>
-            <h2>Add new Contact</h2>
-            <ul>
+            <h2>Contacts</h2>
+            <table><tbody>
                 {result.map((p, i) => 
                     <Person 
                         key = {i}
@@ -85,7 +97,8 @@ const App = () => {
                         remove = {() => toggleRemove([p.id, p.name])}
                     />
                 )}
-            </ul>
+            </tbody></table>
+            <h2>Add new Contact</h2>
             <Form newPerson={newPerson} newName={newName} setNewName={setNewName} 
                 newNumber={newNumber} setNewNumber={setNewNumber} />
             <h2>Numbers</h2>
