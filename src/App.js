@@ -3,14 +3,16 @@ import Filter from "./Components/Filter"
 import Form from "./Components/Form"
 import Person from "./Components/Result"
 import contactsServices from './server/contacts'
-import Notification from './Components/Notifications'
+import Notification from './Components/SuccessNoti'
+import Warning from './Components/ErrorNoti'
 
 const App = () => {
     const [persons, setPersons] = useState([])
     const [newNumber, setNewNumber] = useState('')
     const [newName, setNewName] = useState('')
     const [newSearch, setNewSearch] = useState("")
-    const [msg, setMsg] = useState("")
+    const [msg, setMsg] = useState(null)
+    const [failure, setFailure] = useState(null)
 
     const getData = () => {
         contactsServices
@@ -46,7 +48,7 @@ const App = () => {
                     setTimeout(() => {
                         setMsg(null)
                     }, 5000)
-                })     
+                }) 
         }
         const updateMsg = `${personObject.name} already exists,`
             + `do you want to update his Number with: ${personObject.number}?`
@@ -65,6 +67,12 @@ const App = () => {
                             setMsg(null)
                         }, 5000)
                     })
+                    .catch(error => {
+                        setFailure(`${matches[0].name} was already removed from server`)
+                        setTimeout(() => { 
+                            setFailure(null)
+                        }, 5000)
+                    })    
         }
     }
     const toggleRemove = (id) => {
@@ -74,6 +82,12 @@ const App = () => {
                 .then(setPersons(persons.filter(p =>
                     p.id !== id[0] 
                 )))
+                .catch(error => {
+                    setFailure(`${id[1]} was already removed from server`)
+                    setTimeout(() => { 
+                        setFailure(null)
+                    }, 5000)
+                })    
         }
     }
 
@@ -86,6 +100,7 @@ const App = () => {
         <div>
             <h2>Phonebook</h2>
             <Notification message={msg}/>
+            <Warning error={failure} />
             <Filter setNewSearch={setNewSearch} newSearch={newSearch}/>
             <h2>Contacts</h2>
             <table><tbody>

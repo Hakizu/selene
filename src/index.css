@@ -5,7 +5,7 @@ td {
 .number {
   width: 120px;
 }
-.error {
+.success {
   color: green;
   background: darkslategrey;
   font-size: 20px;
@@ -15,3 +15,12 @@ td {
   margin-bottom: 10px;
 }
 
+.error {
+  color: rgb(187, 8, 8);
+  background: rgb(65, 11, 2);
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
