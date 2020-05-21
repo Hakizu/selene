@@ -27,13 +27,34 @@ const App = () => {
             number : newNumber,
             id : persons.length + 1
         }
-        contactsServices
-            .create(personObject)
-            .then(person => {
-                setPersons(persons.concat(person)) 
-                setNewName("")
-                setNewNumber("")
-            })       
+        const matches = persons.filter(p => 
+            p.name === personObject.name)
+
+        const existing = matches.length > 0 
+            ? true
+            : false
+
+        if  (!existing) {
+            contactsServices
+                .create(personObject)
+                .then(person => {
+                    setPersons(persons.concat(person)) 
+                    setNewName("")
+                    setNewNumber("")
+                })     
+        }
+        const updateMsg = `${personObject.name} already exists,do you want to update his Number with: ${personObject.number}?`
+        if  (existing && window.confirm(updateMsg)) {
+                contactsServices
+                    .update(personObject, matches[0].id)
+                    .then(returnedPerson => {
+                        setPersons(persons.map(p => 
+                            p.id !== matches[0].id ? p : returnedPerson
+                            ))
+                        setNewName("")
+                        setNewNumber("")
+                    })
+        }
     }
     const toggleRemove = (id) => {
         if (window.confirm(`Do you want to delete ${id[1]} ?`)) {

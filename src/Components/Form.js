@@ -1,12 +1,18 @@
 import React from 'react'
 
-const Form = ({newPerson, newName, setNewName, newNumber, setNewNumber}) =>{
+const Form = ({newPerson, newName, setNewName, newNumber, setNewNumber}) => {
+    // "abc".match(/[a-zA-Z]*/) => ist buchstabe
+    // "123".match(/[0-9]*/) => ist zahl
 
     const handlePersonChange = (event) => {
+        console.log(event.target.value)
+        if ((isNaN(event.target.value)) || event.target.value === "")
         setNewName(event.target.value)
-    }
+        } 
     const handleNumberChange = (event) => {
-        setNewNumber(event.target.value)
+        if (!isNaN(parseInt(event.target.value)) || event.target.value === ""){
+            setNewNumber(event.target.value)
+        }
     }
 
     return(
