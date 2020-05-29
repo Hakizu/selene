@@ -48,7 +48,15 @@ const App = () => {
                     setTimeout(() => {
                         setMsg(null)
                     }, 5000)
-                }) 
+                })
+                .catch(error => {
+                    setMsg(`${error.response.data.error}`)
+                    setNewName("")
+                    setNewNumber("")
+                    setTimeout(() => {
+                        setMsg(null)
+                    }, 10000)
+                })
         }
         const updateMsg = `${personObject.name} already exists,`
             + `do you want to update his Number with: ${personObject.number}?`
@@ -116,7 +124,6 @@ const App = () => {
             <h2>Add new Contact</h2>
             <Form newPerson={newPerson} newName={newName} setNewName={setNewName} 
                 newNumber={newNumber} setNewNumber={setNewNumber} />
-            <h2>Numbers</h2>
         </div>
     )
 }
